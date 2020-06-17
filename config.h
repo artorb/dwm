@@ -12,7 +12,7 @@ static const int smartgaps          = 0;        /* 1 means no outer gap when the
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 2;        /* 0 means bottom bar */
 static const int user_bh            = 30;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static const char *fonts[]          = { "Iosevka Nerd Font:Bold:size=13" };
+static const char *fonts[]          = { "Iosevka Nerd Font:size=12" };
 static const char dmenufont[]       = "Iosevka Nerd Font:Bold:size=13";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -72,8 +72,8 @@ static const Layout layouts[] = {
 /* key definitions */
 #define MODKEY Mod4Mask
 #define MODKEY_ALT Mod1Mask
-#define MODKEY_r_alt Mod5Mask /*alt -ISO Level3 Shift*/
-#define MODEKEY_r_ctr Mod3Mask
+#define MODKEY_RALT Mod5Mask /*alt -ISO Level3 Shift*/
+#define MODKEY_RCTR Mod3Mask
 
 
 #define TAGKEYS(KEY,TAG) \
@@ -122,20 +122,20 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY|Mod4Mask,              XK_h,      incrgaps,       {.i = +1 } },
-	{ MODKEY|Mod4Mask,              XK_l,      incrgaps,       {.i = -1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_h,      incrogaps,      {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_l,      incrogaps,      {.i = -1 } },
-	{ MODKEY|Mod4Mask|ControlMask,  XK_h,      incrigaps,      {.i = +1 } },
-	{ MODKEY|Mod4Mask|ControlMask,  XK_l,      incrigaps,      {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_0,      togglegaps,     {0} },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
+	{ MODKEY|MODKEY_RCTR,           XK_h,      incrgaps,       {.i = +1 } },
+	{ MODKEY|MODKEY_RCTR,              XK_l,      incrgaps,       {.i = -1 } },
+	{ MODKEY|MODKEY_RCTR|ShiftMask,    XK_h,      incrogaps,      {.i = +1 } },
+	{ MODKEY|MODKEY_RCTR|ShiftMask,    XK_l,      incrogaps,      {.i = -1 } },
+	{ MODKEY|MODKEY_RCTR|ControlMask,  XK_h,      incrigaps,      {.i = +1 } },
+	{ MODKEY|MODKEY_RCTR|ControlMask,  XK_l,      incrigaps,      {.i = -1 } },
+	{ MODKEY|MODKEY_RCTR,              XK_0,      togglegaps,     {0} },
+	{ MODKEY|MODKEY_RCTR|ShiftMask,    XK_0,      defaultgaps,    {0} },
 	{ MODKEY,                       XK_y,      incrihgaps,     {.i = +1 } },
 	{ MODKEY,                       XK_o,      incrihgaps,     {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_y,      incrivgaps,     {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_o,      incrivgaps,     {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_y,      incrohgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask,              XK_o,      incrohgaps,     {.i = -1 } },
+	{ MODKEY|MODKEY_RCTR,           XK_y,      incrohgaps,     {.i = +1 } },
+	{ MODKEY|MODKEY_RCTR,           XK_o,      incrohgaps,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_y,      incrovgaps,     {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_o,      incrovgaps,     {.i = -1 } },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
