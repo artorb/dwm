@@ -12,7 +12,7 @@ static const int smartgaps          = 0;        /* 1 means no outer gap when the
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 2;        /* 0 means bottom bar */
 static const int user_bh            = 30;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static const char *fonts[]          = { "Iosevka Nerd Font:size=12" };
+static const char *fonts[]          = { "Iosevka Nerd Font:size=12", "Ubuntu Mono:size=12"};
 static const char dmenufont[]       = "Iosevka Nerd Font:Bold:size=13";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -21,7 +21,8 @@ static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#2c2f33";
 static const unsigned int baralpha = 60;
 //static const unsigned int baralpha = 0xd0;
-static const unsigned int borderalpha = OPAQUE;
+//static const unsigned int borderalpha = OPAQUE;
+static const unsigned int borderalpha = 90;
 
 
 static const char *colors[][3]      = {
