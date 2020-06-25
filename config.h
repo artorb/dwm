@@ -12,13 +12,15 @@ static const int smartgaps          = 0;        /* 1 means no outer gap when the
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 2;        /* 0 means bottom bar */
 static const int user_bh            = 30;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static const char *fonts[]          = { "Iosevka Nerd Font:size=13", "Ubuntu Mono:size=12"};
+static const char *fonts[]          = { "Cozette:Medium:size=13", "Iosevka Nerd Font:size=13"};
+//static const char *fonts[]          = { "Iosevka Nerd Font:size=13", "Ubuntu Mono:size=12"};
 static const char dmenufont[]       = "Iosevka Nerd Font:Bold:size=13";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#2c2f33";
+static const char col_gray1[]       = "#24182e";
+static const char col_gray2[]       = "#3c223b";
+static const char col_gray3[]       = "#fd6c71";
+static const char col_gray4[]       = "#7a8fd9";
+static const char col_cyan[]        = "#2a1526";
+static const char art_color1[]      = "#696ea9";
 static const unsigned int baralpha = 60;
 //static const unsigned int baralpha = 0xd0;
 //static const unsigned int borderalpha = OPAQUE;
@@ -27,14 +29,14 @@ static const unsigned int borderalpha = 90;
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
-    [SchemeHid]  = { col_cyan,  col_gray1, col_cyan  },
-	[SchemeStatus]  = { col_gray3, col_gray1,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
-	[SchemeTagsSel]  = { col_gray4, col_cyan,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
-    [SchemeTagsNorm]  = { col_gray3, col_gray1,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-    [SchemeInfoSel]  = { col_gray4, col_cyan,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
-    [SchemeInfoNorm]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
+	[SchemeNorm] = { col_gray3, col_cyan, col_gray2 },
+	[SchemeSel]  = { col_gray4, col_gray1,  col_cyan  },
+    [SchemeHid]  = { col_cyan,  col_cyan, col_cyan  },
+	[SchemeStatus]  = { art_color1, col_cyan,  "#9bc29e"  }, // Statusbar right {text,background,not used but cannot be empty}
+	[SchemeTagsSel]  = { col_gray3, col_cyan,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
+    [SchemeTagsNorm]  = { col_gray4, col_cyan,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
+    [SchemeInfoSel]  = { art_color1, col_cyan,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
+    [SchemeInfoNorm]  = { col_gray3, col_cyan,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
 };
 
 static const unsigned int alphas[][3]      = {
@@ -109,7 +111,7 @@ static Key keys[] = {
 //{ MODKEY,               XK_n,       spawn,      SHCMD("amixer -t; kill -44 $(pidof dwmblocks)") },
     { MODKEY,               XK_n,      spawn,      SHCMD("alacritty -e ncmpcpp") },
     { MODKEY,               XK_w,      spawn,          {.v = browscmd} },
-    { MODKEY,               XK_r,      spawn,          SHCMD("rofi -show run")},
+    { MODKEY,               XK_r,      spawn,          SHCMD("rofi -show run -theme sidebar -matching fuzzy")},
 	{ MODKEY_ALT,           XK_f,      fullscreen,      {0} },
     
     //////////////////////////////////////////////////////////////////////////////////
