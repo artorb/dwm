@@ -1,26 +1,28 @@
 /* See LICENSE file for copyright and license details. */
-
+// Selmon - selected monitor
 /* appearance */
-static const unsigned int borderpx  = 4;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */ 
-static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
-static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
-static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    = 10;       /* vert outer gap between windows and screen edge */
-static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int snap      = 12;       /* snap pixel */ 
+static const unsigned int gappih    = 7;       /* horiz inner gap between windows */
+static const unsigned int gappiv    = 7;       /* vert inner gap between windows */
+static const unsigned int gappoh    = 7;       /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    = 7;       /* vert outer gap between windows and screen edge */
+static const int smartgaps          = 1;        /* 1 means no outer gap when there is only one window */
 
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 2;        /* 0 means bottom bar */
-static const int user_bh            = 30;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static const char *fonts[]          = { "Cozette:Medium:size=13", "Iosevka Nerd Font:size=13"};
+static const int user_bh            = 25;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
+static const char *fonts[]          = { "Cozette:size=10"};
 //static const char *fonts[]          = { "Iosevka Nerd Font:size=13", "Ubuntu Mono:size=12"};
 static const char dmenufont[]       = "Iosevka Nerd Font:Bold:size=13";
 static const char col_gray1[]       = "#24182e";
 static const char col_gray2[]       = "#3c223b";
-static const char col_gray3[]       = "#fd6c71";
+static const char col_gray3[]       = "#f7c1d4";
 static const char col_gray4[]       = "#7a8fd9";
 static const char col_cyan[]        = "#2a1526";
 static const char art_color1[]      = "#696ea9";
+static const char art_color2[]      = "#858585";
+static const char art_color3[]      = "#c1d4f7";
 static const unsigned int baralpha = 60;
 //static const unsigned int baralpha = 0xd0;
 //static const unsigned int borderalpha = OPAQUE;
@@ -32,21 +34,21 @@ static const char *colors[][3]      = {
 	[SchemeNorm] = { col_gray3, col_cyan, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_gray1,  col_cyan  },
     [SchemeHid]  = { col_cyan,  col_cyan, col_cyan  },
-	[SchemeStatus]  = { art_color1, col_cyan,  "#9bc29e"  }, // Statusbar right {text,background,not used but cannot be empty}
+	[SchemeStatus]  = { art_color2, col_cyan,  "#9bc29e"  }, // Statusbar right {text,background,not used but cannot be empty}
 	[SchemeTagsSel]  = { col_gray3, col_cyan,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
     [SchemeTagsNorm]  = { col_gray4, col_cyan,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-    [SchemeInfoSel]  = { art_color1, col_cyan,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
+    [SchemeInfoSel]  = { art_color3, col_cyan,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
     [SchemeInfoNorm]  = { col_gray3, col_cyan,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
 };
 
 static const unsigned int alphas[][3]      = {
    /*               fg      bg        border     */
-   [SchemeNorm] = { OPAQUE, baralpha, borderalpha },
-   [SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+   [SchemeNorm] = { 150, baralpha, borderalpha },
+   [SchemeSel]  = { 150, baralpha, borderalpha },
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "","" };
+static const char *tags[] = { "", "", "", "", "","" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -81,6 +83,7 @@ static const Layout layouts[] = {
 
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+	{ MODKEY_RCTR,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
@@ -99,15 +102,15 @@ static Key keys[] = {
     ///////////////////////////////////////////////////////////////////////////////////
 	/* modifier                     key        function        argument */
 
-    { MODKEY_ALT,             XK_F7,      spawn,      SHCMD("brightnessctl set 5%-") },
-    { MODKEY_ALT,             XK_F8,      spawn,      SHCMD("brightnessctl set 5%+") },
-    { MODKEY_ALT,             XK_F10,     spawn,      SHCMD("scrot") },
-    { MODKEY_ALT,             XK_F5,      spawn,      SHCMD("mpc toggle") },
-    { MODKEY_ALT,             XK_F6,      spawn,      SHCMD("mpc next") },
-    { MODKEY_ALT,             XK_F4,      spawn,      SHCMD("mpc prev") },
-    { MODKEY_ALT,             XK_F1,      spawn,      SHCMD("toggle_mute_mpc") },
-    { MODKEY_ALT,             XK_F2,      spawn,      SHCMD("mpc volume -3") },
-    { MODKEY_ALT,             XK_F3,      spawn,      SHCMD("mpc volume +3") }, 
+    { MODKEY_RCTR,             XK_F7,      spawn,      SHCMD("brightnessctl set 5%-") },
+    { MODKEY_RCTR,             XK_F8,      spawn,      SHCMD("brightnessctl set 5%+") },
+    { MODKEY_RCTR,             XK_F10,     spawn,      SHCMD("scrot") },
+    { MODKEY_RCTR,             XK_F5,      spawn,      SHCMD("mpc toggle") },
+    { MODKEY_RCTR,             XK_F6,      spawn,      SHCMD("mpc next") },
+    { MODKEY_RCTR,             XK_F4,      spawn,      SHCMD("mpc prev") },
+    { MODKEY_RCTR,             XK_F1,      spawn,      SHCMD("toggle_mute_mpc") },
+    { MODKEY_RCTR,             XK_F2,      spawn,      SHCMD("mpc volume -3") },
+    { MODKEY_RCTR,             XK_F3,      spawn,      SHCMD("mpc volume +3") }, 
 //{ MODKEY,               XK_n,       spawn,      SHCMD("amixer -t; kill -44 $(pidof dwmblocks)") },
     { MODKEY,               XK_n,      spawn,      SHCMD("alacritty -e ncmpcpp") },
     { MODKEY,               XK_w,      spawn,          {.v = browscmd} },
@@ -117,6 +120,7 @@ static Key keys[] = {
     //////////////////////////////////////////////////////////////////////////////////
     /*def*/
 	/* modifier                     key        function        argument */
+    { MODKEY_RCTR,                  XK_h,      togglehidewin, {0} },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -178,7 +182,7 @@ static Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button1,        togglewin,      {0} },
-	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
+	{ ClkWinTitle,          0,              Button3,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },

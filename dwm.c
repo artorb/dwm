@@ -159,6 +159,7 @@ typedef struct {
 } Rule;
 
 /* function declarations */
+static void togglehidewin(const Arg *arg);
 static void applyrules(Client *c);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact);
 static void arrange(Monitor *m);
@@ -2484,6 +2485,20 @@ zoom(const Arg *arg)
 		if (!c || !(c = nexttiled(c->next)))
 			return;
 	pop(c);
+}
+//ssss
+void
+togglehidewin(const Arg *arg)
+{
+    Client *c = selmon->sel;
+     if (c == selmon->sel) 
+         hide(c);
+     else {
+        if (HIDDEN(c)) 
+             show(c); 
+         focus(c);
+         restack(selmon);
+     }
 }
 
 int
