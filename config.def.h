@@ -120,10 +120,8 @@ static Key keys[] = {
     { Win,               XK_w,      spawn,          {.v = browscmd} },
     { Win,               XK_r,      spawn,          SHCMD("rofi -show run -theme sidebar -matching fuzzy")},
 	{ L_Alt,             XK_f,      fullscreen,      {0} },
-	{ L_Alt,             XK_f,      fullscreen,      {0} },
-	{ L_Alt,             XK_f,      fullscreen,      {0} },
-    { L_ALt              XK_m,      setlayout,      {.v = &layouts[3]} },
-    { L_ALt              XK_u,      setlayout,      {.v = &layouts[4]} },
+    { L_Alt,             XK_o,      setlayout,      {.v = &layouts[3]} },
+    { L_Alt,             XK_u,      setlayout,      {.v = &layouts[4]} },
     
     //////////////////////////////////////////////////////////////////////////////////
     /*def*/
