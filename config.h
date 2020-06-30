@@ -111,6 +111,8 @@ static Key keys[] = {
     { MODKEY_RCTR,             XK_F1,      spawn,      SHCMD("toggle_mute_mpc") },
     { MODKEY_RCTR,             XK_F2,      spawn,      SHCMD("mpc volume -3") },
     { MODKEY_RCTR,             XK_F3,      spawn,      SHCMD("mpc volume +3") }, 
+    { MODKEY_RCTR,             XK_d,       shiftview,      {.i = +1} }, 
+    { MODKEY_RCTR,             XK_a,       shiftview,      {.i = -1} }, 
 //{ MODKEY,               XK_n,       spawn,      SHCMD("amixer -t; kill -44 $(pidof dwmblocks)") },
     { MODKEY,               XK_n,      spawn,      SHCMD("alacritty -e ncmpcpp") },
     { MODKEY,               XK_w,      spawn,          {.v = browscmd} },
