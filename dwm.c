@@ -80,9 +80,9 @@ enum { ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
 
 typedef union {
 	int i;
-	unsigned int ui;
-	float f;
-	const void *v;
+	unsigned int ui; // event mask или же код кнопки stdin 
+	float f; //  такой же аргумент но 
+	const void *v; // argument that is not necessary to store or return, то есть просто болванка делающая вызов, потому 0
 } Arg;
 
 typedef struct {
@@ -108,7 +108,7 @@ struct Client {
 	Client *snext;
 	Monitor *mon;
 	Window win;
-};
+};  /// судя по всему просто окно 
 
 typedef struct {
 	unsigned int mod;
@@ -162,7 +162,9 @@ typedef struct {
 static void centeredmaster(Monitor *m);
 static void centeredfloatingmaster(Monitor *m);
 
-static void togglehidewin(const Arg *arg);
+static void unhideall(const Arg *arg);
+
+static void hidefocused(const Arg *arg);
 static void shiftview(const Arg *arg);
 static void applyrules(Client *c);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact);
@@ -2036,8 +2038,8 @@ togglewin(const Arg *arg)
 	else {
 		if (HIDDEN(c))
 			show(c);
-		focus(c);
-		restack(selmon);
+		focus(c); // which window to focus after
+		restack(selmon); // how to stack after
 	}
 }
 
@@ -2492,17 +2494,31 @@ zoom(const Arg *arg)
 }
 //ssss
 void
-togglehidewin(const Arg *arg)
+hidefocused(const Arg *arg)
 {
-    Client *c = selmon->sel;
-     if (c == selmon->sel) 
-         hide(c);
-     else {
-        if (HIDDEN(c)) 
-             show(c); 
-         focus(c);
-         restack(selmon);
-     }
+    hide(selmon->sel);
+}
+void
+unhideall(const Arg *arg)
+{
+    /*Client *c = selmon->clients;*/
+    /*if (c) */
+    /*    for (int t = 0; t < arg->i; t++, c=c->next->next) { // does show one window / if t = -2 will show 3 windows at once*/
+    /*        if ((HIDDEN(c))) */
+    /*              show(c);*/
+    /*        focus(c);*/
+    /*        restack(selmon);*/
+    /*    }*/
+    //Client *c = selmon->stack;
+    Client *c;
+    for (c = selmon->clients; c; c=c->next ) {
+        if ((HIDDEN(c))){
+                 show(c);
+                 break;  
+                 
+    }}
+        focus(c);
+        restack(selmon);
 }
 
 /** Function to shift the current view to the left/right
