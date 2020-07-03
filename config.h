@@ -12,9 +12,8 @@ static const int smartgaps          = 1;        /* 1 means no outer gap when the
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 2;        /* 0 means bottom bar */
 static const int user_bh            = 25;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static const char *fonts[]          = { "scientifica:Medium:size=14"};
 //static const char *fonts[]          = { "Cozette:size=10"};
-//static const char *fonts[]          = { "Iosevka Nerd Font:size=13", "Ubuntu Mono:size=12"};
+static const char *fonts[]          = { "Iosevka Nerd Font:size=13", "Ubuntu Mono:size=12"};
 static const char dmenufont[]       = "Iosevka Nerd Font:Bold:size=13";
 static const char col_gray1[]       = "#24182e";
 static const char col_gray2[]       = "#3c223b";
@@ -97,7 +96,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "alacritty", NULL };
+static const char *termcmd[]  = { "st", NULL };
 static const char *browscmd[]  = { "chromium", NULL };
 
 static Key keys[] = {
@@ -117,7 +116,7 @@ static Key keys[] = {
     { R_Ctr,             XK_d,       shiftview,      {.i = +1} }, 
     { R_Ctr,             XK_a,       shiftview,      {.i = -1} }, 
 //{ Win,               XK_n,       spawn,      SHCMD("amixer -t; kill -44 $(pidof dwmblocks)") },
-    { Win,               XK_n,      spawn,      SHCMD("alacritty -e ncmpcpp") },
+    { Win,               XK_n,      spawn,      SHCMD("st -e ncmpcpp") },
     { Win,               XK_w,      spawn,          {.v = browscmd} },
     { Win,               XK_r,      spawn,          SHCMD("rofi -show run -theme sidebar -matching fuzzy")},
 	{ L_Alt,             XK_f,      fullscreen,      {0} },
@@ -128,7 +127,7 @@ static Key keys[] = {
     /*def*/
 	/* modifier                     key        function        argument */
     { R_Ctr,                     XK_h,      hidefocused,    {0} },
-    { R_Ctr,                     XK_j,      unhideall,      {0} },
+    { R_Ctr,                     XK_j,      unhidefocused, {0} },
 	{ Win,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ Win|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ Win,                       XK_b,      togglebar,      {0} },

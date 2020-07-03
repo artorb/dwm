@@ -162,7 +162,7 @@ typedef struct {
 static void centeredmaster(Monitor *m);
 static void centeredfloatingmaster(Monitor *m);
 
-static void unhideall(const Arg *arg);
+static void unhidefocused(const Arg *arg);
 
 static void hidefocused(const Arg *arg);
 static void shiftview(const Arg *arg);
@@ -2498,25 +2498,18 @@ hidefocused(const Arg *arg)
 {
     hide(selmon->sel);
 }
+/// fix it per tag
 void
-unhideall(const Arg *arg)
+unhidefocused(const Arg *arg)
 {
-    /*Client *c = selmon->clients;*/
-    /*if (c) */
-    /*    for (int t = 0; t < arg->i; t++, c=c->next->next) { // does show one window / if t = -2 will show 3 windows at once*/
-    /*        if ((HIDDEN(c))) */
-    /*              show(c);*/
-    /*        focus(c);*/
-    /*        restack(selmon);*/
-    /*    }*/
-    //Client *c = selmon->stack;
     Client *c;
+    unsigned int curtag = selmon->seltags ^ 1;
     for (c = selmon->clients; c; c=c->next ) {
-        if ((HIDDEN(c))){
-                 show(c);
-                 break;  
-                 
-    }}
+        if(selmon->tagset[selmon->seltags] == curtag){
+             if ((HIDDEN(c))){
+                     show(c);
+                      break;
+    }}}
         focus(c);
         restack(selmon);
 }
