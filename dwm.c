@@ -162,9 +162,9 @@ typedef struct {
 static void centeredmaster(Monitor *m);
 static void centeredfloatingmaster(Monitor *m);
 
-static void unhidefocused(const Arg *arg);
+static void unhideclient(const Arg *arg);
 
-static void hidefocused(const Arg *arg);
+static void hideclient(const Arg *arg);
 static void shiftview(const Arg *arg);
 static void applyrules(Client *c);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact);
@@ -2494,24 +2494,26 @@ zoom(const Arg *arg)
 }
 //ssss
 void
-hidefocused(const Arg *arg)
+hideclient(const Arg *arg)
 {
     hide(selmon->sel);
 }
 /// fix it per tag
 void
-unhidefocused(const Arg *arg)
+unhideclient(const Arg *arg)
 {
     Client *c;
     unsigned int curtag = selmon->seltags ^ 1;
+
     for (c = selmon->clients; c; c=c->next ) {
-        if(selmon->tagset[selmon->seltags] == curtag){
-             if ((HIDDEN(c))){
-                     show(c);
-                      break;
-    }}}
-        focus(c);
-        restack(selmon);
+    if(selmon->tagset[selmon->seltags] == curtag){ // need & to ensure
+       if ((HIDDEN(c))){
+          show(c);
+          break;
+       }     
+    }}      
+    focus(c);
+    restack(selmon);
 }
 
 /** Function to shift the current view to the left/right

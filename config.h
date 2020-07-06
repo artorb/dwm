@@ -23,6 +23,7 @@ static const char col_cyan[]        = "#2a1526";
 static const char art_color1[]      = "#696ea9";
 static const char art_color2[]      = "#858585";
 static const char art_color3[]      = "#c1d4f7";
+
 static const unsigned int baralpha = 60;
 //static const unsigned int baralpha = 0xd0;
 //static const unsigned int borderalpha = OPAQUE;
@@ -126,8 +127,8 @@ static Key keys[] = {
     //////////////////////////////////////////////////////////////////////////////////
     /*def*/
 	/* modifier                     key        function        argument */
-    { R_Ctr,                     XK_h,      hidefocused,    {0} },
-    { R_Ctr,                     XK_j,      unhidefocused, {0} },
+    { R_Ctr,                     XK_h,      hideclient,     {0} },
+    { R_Ctr,                     XK_j,      unhideclient,   {0} },
 	{ Win,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ Win|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ Win,                       XK_b,      togglebar,      {0} },
