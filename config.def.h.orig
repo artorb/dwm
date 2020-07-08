@@ -113,7 +113,7 @@ static Key keys[] = {
     { Win,                      XK_n,       spawn,          SHCMD("st -e ncmpcpp") },
     { Win,                      XK_w,       spawn,          {.v = browscmd} },
     { Win,                      XK_r,       spawn,          SHCMD("rofi -show run -theme sidebar -matching fuzzy")},
-	{ L_Alt,                    XK_f,       togglefullscr,     {0} },
+	{ L_Alt,                    XK_f,       fullscreen,     {0} },
     
 	/* modifier                     key        function        argument */
     { R_Ctr,                     XK_h,      hideunhide,     {.i = +1} },

@@ -51,9 +51,10 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class      instance    title       tags mask     isfloating  isfakefullscreen monitor */
+	{ "Gimp",     NULL,       NULL,       0,            1,          0,              -1 },
+	{ "Firefox",  NULL,       NULL,       1 << 8,       0,          1,              -1 },
+	{ "chromium", NULL,       NULL,       1 << 8,       0,          1,              -1 },
 };
 
 /* layout(s) */
@@ -101,22 +102,22 @@ static Key keys[] = {
     { R_Ctr,                    XK_F7,      spawn,          SHCMD("brightnessctl set 5%-") },
     { R_Ctr,                    XK_F8,      spawn,          SHCMD("brightnessctl set 5%+") },
     { R_Ctr,                    XK_F10,     spawn,          SHCMD("scrot") },
-    { R_Ctr,                    XK_F5,      spawn,          SHCMD("mpc toggle") },
-    { R_Ctr,                    XK_F6,      spawn,          SHCMD("mpc next") },
-    { R_Ctr,                    XK_F4,      spawn,          SHCMD("mpc prev") },
-    { R_Ctr,                    XK_F1,      spawn,          SHCMD("toggle_mute_mpc") },
-    { R_Ctr,                    XK_F2,      spawn,          SHCMD("mpc volume -3") },
-    { R_Ctr,                    XK_F3,      spawn,          SHCMD("mpc volume +3") }, 
+    { R_Ctr,                    XK_F5,      spawn,          SHCMD("mpc toggle; pkill -RTMIN+11 dwmblocks") },
+    { R_Ctr,                    XK_F6,      spawn,          SHCMD("mpc next; pkill -RTMIN+11 dwmblocks") },
+    { R_Ctr,                    XK_F4,      spawn,          SHCMD("mpc prev; pkill -RTMIN+11 dwmblocks") },
+    { R_Ctr,                    XK_F1,      spawn,          SHCMD("toggle_mute_mpc; pkill -RTMIN+8 dwmblocks") },
+    { R_Ctr,                    XK_F2,      spawn,          SHCMD("mpc volume -3; pkill -RTMIN+8 dwmblocks") },
+    { R_Ctr,                    XK_F3,      spawn,          SHCMD("mpc volume +3; pkill -RTMIN+8 dwmblocks") }, 
     { R_Ctr,                    XK_d,       shiftview,      {.i = +1} }, 
     { R_Ctr,                    XK_a,       shiftview,      {.i = -1} }, 
     { Win,                      XK_n,       spawn,          SHCMD("st -e ncmpcpp") },
     { Win,                      XK_w,       spawn,          {.v = browscmd} },
     { Win,                      XK_r,       spawn,          SHCMD("rofi -show run -theme sidebar -matching fuzzy")},
-	{ L_Alt,                    XK_f,       fullscreen,     {0} },
+	{ L_Alt,                    XK_f,       togglefullscr,     {0} },
     
 	/* modifier                     key        function        argument */
-    { R_Ctr,                     XK_h,      hideclient,     {0} },
-    { R_Ctr,                     XK_j,      unhideclient,   {0} },
+    { R_Ctr,                     XK_h,      hideunhide,     {.i = +1} },
+    { R_Ctr,                     XK_j,      hideunhide,     {.i = -1} },
 	{ Win,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ Win,                       XK_Return, spawn,          {.v = termcmd } },
 	{ Win,                       XK_b,      togglebar,      {0} },
