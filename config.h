@@ -9,21 +9,22 @@ static const int smartgaps          = 1;        /* 1 means no outer gap when the
 
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 2;        /* 0 means bottom bar */
-static const int user_bh            = 25;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static const char *fonts[]          = {"Iosevka Nerd Font:Bold:size=13"};
-static const char dmenufont[]       = "Iosevka Nerd Font:Bold:size=13";
-static const char col_gray1[]       = "#263237";
+static const int user_bh            = 20;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
+static const char *fonts[]          = {"Iosevka Term SS07:Regular:size=13"};
+static const char dmenufont[]       = "Iosevka Term SS07:Regular:size=13";
+static const char col_gray1[]       = "#292c35";
 static const char col_gray2[]       = "#ffffff";
-static const char col_gray3[]       = "#9bc29e";
-static const char col_gray4[]       = "#7a8fd9";
-static const char col_cyan[]        = "#263237";
+static const char col_gray3[]       = "#51839d";
+static const char col_gray4[]       = "#9479a8";
+static const char col_cyan[]        = "#292c35";
 static const char art_color1[]      = "#c1d4f7";
-static const char art_color2[]      = "#263237";
+static const char art_color2[]      = "#292c35";
 static const char art_color3[]      = "#9bc29e";
 
 static const unsigned int baralpha = 0xd1;
 static const unsigned int borderalpha = 0xd1;
 
+// dwmblocks info -> 1 = SchemeNorm, 2 = SchemeSel etc, so the signal correlates to that (current 7 which is art_color1 in SchemeInfoSel)
 
 static const char *colors[][8]      = {
 	/*               fg         bg         border   */
@@ -31,9 +32,9 @@ static const char *colors[][8]      = {
 	[SchemeSel]  = { col_gray4, col_gray1,  col_cyan  },
     [SchemeHid]  = { art_color3,  col_cyan, col_cyan  },
 	[SchemeStatus]  = { col_gray4, col_cyan,  "#9bc29e"  }, // Statusbar right {text,background,not used but cannot be empty}
-	[SchemeTagsSel]  = { art_color1, col_cyan,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
+	[SchemeTagsSel]  = { col_gray3, col_cyan,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
     [SchemeTagsNorm]  = { col_gray4, col_cyan,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-    [SchemeInfoSel]  = { art_color3, col_cyan,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
+    [SchemeInfoSel]  = { art_color1, col_cyan,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
     [SchemeInfoNorm]  = { col_gray3, col_cyan,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
 };
 
@@ -44,7 +45,7 @@ static const unsigned int alphas[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "","" };
+static const char *tags[] = { "1", "2", "3", "4", "5","6" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -65,9 +66,9 @@ static const int decorhints  = 1;    /* 1 means respect decoration hints */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-   	{ "|M|",      centeredmaster },
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
+   	{ "",      centeredmaster },
+	{ "",      tile },    /* first entry is default */
+	{ "",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 	{ ">M>",      centeredfloatingmaster },
 	{ NULL,       NULL },
@@ -93,7 +94,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "alacritty", NULL };
+static const char *termcmd[]  = { "st", NULL };
 //static const char *termcmd[]  = { "st", NULL };
 static const char *browscmd[]  = { "chromium", NULL };
 
@@ -112,13 +113,16 @@ static Key keys[] = {
     { R_Ctr,                    XK_y,       spawn,          SHCMD("dmenuhandler") }, 
     { R_Ctr,                    XK_d,       shiftview,      {.i = +1} }, 
     { R_Ctr,                    XK_a,       shiftview,      {.i = -1} }, 
-    { Win,                      XK_n,       spawn,          SHCMD("st -e ncmpcpp") },
+    { Win,                      XK_d,       shiftview,      {.i = +1} }, 
+    { Win,                      XK_a,       shiftview,      {.i = -1} }, 
+    { Win,                      XK_n,       spawn,          SHCMD("alacritty -e ncmpcpp") },
     { Win,                      XK_w,       spawn,          {.v = browscmd} },
     { Win,                      XK_r,       spawn,          SHCMD("rofi -show run -theme sidebar -matching fuzzy")},
 	{ L_Alt,                    XK_f,       togglefullscr,     {0} },
     
 	/* modifier                     key        function        argument */
     { R_Ctr,                     XK_h,      hideunhide,     {.i = +1} },
+    { R_Ctr,                     XK_l,      hideunfocused,  {0} },
     { R_Ctr,                     XK_j,      hideunhide,     {.i = -1} },
 	{ Win,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ Win,                       XK_Return, spawn,          {.v = termcmd } },
@@ -126,7 +130,7 @@ static Key keys[] = {
 	{ Win,                       XK_j,      focusstack,     {.i = +1 } },
 	{ Win,                       XK_k,      focusstack,     {.i = -1 } },
 	{ Win,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ Win,                       XK_d,      incnmaster,     {.i = -1 } },
+//	{ Win,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ Win,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ Win,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ Win|R_Ctr,                 XK_h,      incrgaps,       {.i = +1 } },

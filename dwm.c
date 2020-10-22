@@ -164,6 +164,7 @@ static void centeredmaster(Monitor *m);
 static void centeredfloatingmaster(Monitor *m);
 
 static void hideunhide(const Arg *arg);
+static void hideunfocused(const Arg *arg);
 
 static void shiftview(const Arg *arg);
 static void applyrules(Client *c);
@@ -2531,19 +2532,35 @@ zoom(const Arg *arg)
 void
 hideunhide(const Arg *arg)
 {
-    Client *c;
-    if (arg->i > 0) 
-        hide(selmon->sel);
-    else {
-        for (c = selmon->clients; c; c=c->next ) {
+    Client *c, *cur;
+    cur = selmon->sel;
+    if (cur && arg->i > 0) 
+        hide(cur);
+    else
+        for (c = selmon->clients; c; c=c->next ){
              if ((HIDDEN(c) && (ISVISIBLE(c)))){
                  show(c);
                  focus(c);
                  break;
-             }     
-        }      
+        }     
     }
     restack(selmon);
+}
+
+void
+hideunfocused(const Arg *arg)
+{
+    Client *c, *cur;
+    cur = selmon->sel;
+    if(!cur)
+        return;
+    for(c = selmon->clients; c; c=c->next){
+        if(c==cur)
+            continue;
+        else if(!HIDDEN(c) && ISVISIBLE(c))
+            hide(c);
+    }
+    arrange(selmon);
 }
 
 /** Function to shift the current view to the left/right

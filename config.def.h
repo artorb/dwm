@@ -10,30 +10,30 @@ static const int smartgaps          = 1;        /* 1 means no outer gap when the
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 2;        /* 0 means bottom bar */
 static const int user_bh            = 25;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static const char *fonts[]          = {"Iosevka Nerd Font:size=13", "Ubuntu Mono:size=12"};
-static const char dmenufont[]       = "Iosevka Nerd Font:Bold:size=13";
-static const char col_gray1[]       = "#24182e";
-static const char col_gray2[]       = "#3c223b";
-static const char col_gray3[]       = "#f7c1d4";
+static const char *fonts[]          = {"Iosevka Term SS07:Regular:size=13"};
+static const char dmenufont[]       = "Iosevka Term SS07:Regular:size=13";
+static const char col_gray1[]       = "#263237";
+static const char col_gray2[]       = "#ffffff";
+static const char col_gray3[]       = "#9bc29e";
 static const char col_gray4[]       = "#7a8fd9";
-static const char col_cyan[]        = "#2a1526";
-static const char art_color1[]      = "#696ea9";
-static const char art_color2[]      = "#858585";
-static const char art_color3[]      = "#c1d4f7";
+static const char col_cyan[]        = "#263237";
+static const char art_color1[]      = "#c1d4f7";
+static const char art_color2[]      = "#263237";
+static const char art_color3[]      = "#9bc29e";
 
 static const unsigned int baralpha = 0xd1;
 static const unsigned int borderalpha = 0xd1;
 
 
-static const char *colors[][3]      = {
+static const char *colors[][8]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_cyan, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_gray1,  col_cyan  },
-    [SchemeHid]  = { col_cyan,  col_cyan, col_cyan  },
-	[SchemeStatus]  = { art_color2, col_cyan,  "#9bc29e"  }, // Statusbar right {text,background,not used but cannot be empty}
-	[SchemeTagsSel]  = { col_gray3, col_cyan,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
+    [SchemeHid]  = { art_color3,  col_cyan, col_cyan  },
+	[SchemeStatus]  = { col_gray4, col_cyan,  "#9bc29e"  }, // Statusbar right {text,background,not used but cannot be empty}
+	[SchemeTagsSel]  = { art_color1, col_cyan,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
     [SchemeTagsNorm]  = { col_gray4, col_cyan,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-    [SchemeInfoSel]  = { art_color3, col_cyan,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
+    [SchemeInfoSel]  = { art_color1, col_cyan,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
     [SchemeInfoNorm]  = { col_gray3, col_cyan,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
 };
 
@@ -60,7 +60,7 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int decorhints  = 1;    /* 1 means respect decoration hints */
 
 static const Layout layouts[] = {
@@ -93,14 +93,15 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "alacritty", NULL };
+//static const char *termcmd[]  = { "st", NULL };
 static const char *browscmd[]  = { "chromium", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 
-    { R_Ctr,                    XK_F7,      spawn,          SHCMD("brightnessctl set 5%-") },
-    { R_Ctr,                    XK_F8,      spawn,          SHCMD("brightnessctl set 5%+") },
+    { R_Ctr,                    XK_F7,      spawn,          SHCMD("xbacklight -dec 5") },
+    { R_Ctr,                    XK_F8,      spawn,          SHCMD("xbacklight -inc 5") },
     { R_Ctr,                    XK_F10,     spawn,          SHCMD("scrot") },
     { R_Ctr,                    XK_F5,      spawn,          SHCMD("mpc toggle; pkill -RTMIN+11 dwmblocks") },
     { R_Ctr,                    XK_F6,      spawn,          SHCMD("mpc next; pkill -RTMIN+11 dwmblocks") },
@@ -108,6 +109,7 @@ static Key keys[] = {
     { R_Ctr,                    XK_F1,      spawn,          SHCMD("toggle_mute_mpc; pkill -RTMIN+8 dwmblocks") },
     { R_Ctr,                    XK_F2,      spawn,          SHCMD("mpc volume -3; pkill -RTMIN+8 dwmblocks") },
     { R_Ctr,                    XK_F3,      spawn,          SHCMD("mpc volume +3; pkill -RTMIN+8 dwmblocks") }, 
+    { R_Ctr,                    XK_y,       spawn,          SHCMD("dmenuhandler") }, 
     { R_Ctr,                    XK_d,       shiftview,      {.i = +1} }, 
     { R_Ctr,                    XK_a,       shiftview,      {.i = -1} }, 
     { Win,                      XK_n,       spawn,          SHCMD("st -e ncmpcpp") },
